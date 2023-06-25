@@ -26,7 +26,7 @@ class SignalSpider(scrapy.Spider):
     os.makedirs(output_directory_path, exist_ok=True)
 
     def start_requests(self):
-        for number in range(328258, 395000):
+        for number in range(339036, 395000):
             url = self.start_url + str(number)
             delay = 2
             yield SplashRequest(url, self.parse, args={'wait': delay}, meta={"number": number})
