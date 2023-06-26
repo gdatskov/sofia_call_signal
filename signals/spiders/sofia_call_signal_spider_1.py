@@ -2,7 +2,6 @@ import codecs
 import datetime
 import json
 import os
-import random
 import shutil
 import time
 import scrapy
@@ -26,12 +25,12 @@ class SignalSpider(scrapy.Spider):
     os.makedirs(output_directory_path, exist_ok=True)
 
     def start_requests(self):
-        for number in range(339036, 395000):
+        for number in range(371745, 395000):
             url = self.start_url + str(number)
             delay = 2
             yield SplashRequest(url, self.parse, args={'wait': delay}, meta={"number": number})
 
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         number = response.meta["number"]
 
         # Extract the signal field from the HTML using XPath
@@ -187,11 +186,6 @@ class SignalSpider(scrapy.Spider):
 
 # Define the pipeline to write items to JSON files
 
-
-
-import json
-import codecs
-
 class JsonWriterPipeline:
     def __init__(self, backup_interval=100, backup_time_interval=300):
         self.backup_interval = backup_interval
@@ -227,7 +221,8 @@ class JsonWriterPipeline:
         # Create a backup of the file based on the backup interval or backup time interval
         current_time = time.time()
 
-        if self.processed_items % self.backup_interval == 0 or current_time - self.last_backup_time >= self.backup_time_interval:
+        if self.processed_items % self.backup_interval == 0 \
+                or current_time - self.last_backup_time >= self.backup_time_interval:
             self.last_backup_time = current_time
 
             # Create the backup directory if it doesn't exist
