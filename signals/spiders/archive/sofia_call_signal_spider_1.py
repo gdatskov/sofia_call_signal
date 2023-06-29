@@ -25,7 +25,7 @@ class SignalSpider(scrapy.Spider):
     os.makedirs(output_directory_path, exist_ok=True)
 
     def start_requests(self):
-        for number in range(379269, 398000):
+        for number in range(300000, 0, -1):
             url = self.start_url + str(number)
             delay = 2
             yield SplashRequest(url, self.parse, args={'wait': delay}, meta={"number": number})
@@ -226,9 +226,9 @@ class JsonWriterPipeline:
             self.last_backup_time = current_time
 
             # Create the backup directory if it doesn't exist
-            os.makedirs("backup", exist_ok=True)
+            os.makedirs("../backup", exist_ok=True)
 
-            backup_file_name = os.path.join("backup", os.path.basename(file_name) + '.bak')
+            backup_file_name = os.path.join("../backup", os.path.basename(file_name) + '.bak')
             shutil.copyfile(file_name, backup_file_name)
 
         return item

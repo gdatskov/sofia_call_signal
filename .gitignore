@@ -2,3 +2,4 @@
 /signals/spiders/backup/
 /signals/spiders/scraped_data/
 /notebooks/.ipynb_checkpoints/
+./test.py/

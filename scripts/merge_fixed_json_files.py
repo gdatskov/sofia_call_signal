@@ -45,5 +45,5 @@ for folder in files_folders:
                         print()
             with open(os.path.join(dst_data_dir, filename), 'a', encoding='utf-8') as write_file:
                 for line_data in data:
-                    json.dump(line_data, write_file)
+                    json.dump(line_data, write_file, ensure_ascii=False)
                     write_file.write('\n')
